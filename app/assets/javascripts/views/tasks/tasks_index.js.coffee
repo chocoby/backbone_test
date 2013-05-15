@@ -4,6 +4,13 @@ class BackboneTest.Views.TasksIndex extends Backbone.View
 
   el: '#main'
 
+  initialize: ->
+    console.log 'initialize'
+    @collection = new BackboneTest.Collections.Tasks()
+    @listenTo @collection, 'reset', @render
+    @listenTo @collection, 'add', @renderOne
+    @collection.fetch()
+
   render: =>
     console.log 'render'
     $(@el).append @template
@@ -13,10 +20,3 @@ class BackboneTest.Views.TasksIndex extends Backbone.View
     console.log 'renderOne'
     view = new BackboneTest.Views.Task({model: task})
     $(@el).append view.render().el
-
-  initialize: ->
-    console.log 'initialize'
-    @collection = new BackboneTest.Collections.Tasks()
-    @collection.bind 'reset', @render
-    @collection.on 'add', @renderOne
-    @collection.fetch()

@@ -3,7 +3,9 @@ window.BackboneTest =
   Collections: {}
   Views: {}
   Routers: {}
-  initialize: -> alert 'Hello from Backbone!'
+  initialize: ->
+    new BackboneTest.Routers.Tasks()
+    Backbone.history.start()
 
 $(document).ready ->
   BackboneTest.initialize()
